@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Doctor Dashboard - MediCare Pro</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      display: flex;
+      background-color: #1e1e2f;
+      color: #f5f5f5;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #27293d;
+      height: 100vh;
+      padding: 20px;
+      position: fixed;
+    }
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: 24px;
+      color: #00c9a7;
+    }
+    .sidebar ul {
+      list-style-type: none;
+    }
+    .sidebar ul li {
+      margin: 20px 0;
+    }
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #ddd;
+      font-size: 16px;
+      display: block;
+      transition: 0.3s;
+    }
+    .sidebar ul li a:hover {
+      color: #00c9a7;
+    }
+    .main-content {
+      margin-left: 240px;
+      padding: 40px;
+      width: calc(100% - 240px);
+    }
+    h1, h2 {
+      margin-bottom: 20px;
+      color: #00c9a7;
+    }
+    .form-toggle {
+      margin-bottom: 20px;
+    }
+    .form-toggle button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      background-color: #00c9a7;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-toggle button:hover {
+      background-color: #00b89f;
+    }
+    form {
+      background-color: #2e2f45;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      background-color: #1e1f2e;
+      border: 1px solid #444;
+      border-radius: 5px;
+      color: #fff;
+    }
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #00c9a7;
+      border: none;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    section.result-section {
+      background-color: #2e2f45;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+    ul {
+      list-style: none;
+      margin-top: 10px;
+      padding-left: 0;
+    }
+    li {
+      background-color: #2a2b3d;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+    strong {
+      color: #00c9a7;
+    }
+    .download-link {
+      margin-top: 8px;
+      display: inline-block;
+      background: #00c9a7;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .download-link:hover {
+      background: #00b89f;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>RA BLOCKHEALTH</h2>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">Send to Lab</a></li>
+      <li><a href="#">Send to Pharmacy</a></li>
+      <li><a href="{{ url_for('home') }}">Logout</a></li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <h1>Welcome, Doctor </h1>
+    {% if success %}<div class="alert success">{{ success }}</div>{% elif error %}<div class="alert error">{{ error }}</div>{% endif %}
+    <div class="form-toggle">
+      <button onclick="showForm('patient-form')">Patient</button>
+      <button onclick="showForm('lab-form')">Lab</button>
+      <button onclick="showForm('pharmacy-form')">Pharmacy</button>
+    </div>
+    <form id="patient-form" style="display: none;" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="form_type" value="patient_form">
+      <h2>Submit Patient Diagnosis and Prescription</h2>
+      <label>Patient ID:</label>
+      <input type="text" name="patient_id" required>
+      <label>Diagnosis:</label>
+      <input type="text" name="diagnosis" required>
+      <label>Prescription:</label>
+      <textarea name="prescription" required></textarea>
+      <label>Upload Medical Document:</label>
+      <input type="file" name="medical_docs" required>
+      <button type="submit">Submit</button>
+    </form>
+    <form id="lab-form" style="display: none;" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="form_type" value="lab_form">
+      <h2>Send Test Request to Lab</h2>
+      <label>Lab ID:</label>
+      <input type="text" name="lab_id" required>
+      <label>Sample Type:</label>
+      <input type="text" name="Sample_Type" required>
+      <label>Test Instructions:</label>
+      <textarea name="Test_Instructions" required></textarea>
+      <label>Upload File:</label>
+      <input type="file" name="lab_file" required>
+      <button type="submit">Submit</button>
+    </form>
+    <form id="pharmacy-form" style="display: none;" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="form_type" value="pharmacy_form">
+      <h2>Send Prescription to Pharmacy</h2>
+      <label>Pharmacy ID:</label>
+      <input type="text" name="pharmacy_id" required>
+      <label>Medications:</label>
+      <textarea name="medications" required></textarea>
+      <label>Upload File:</label>
+      <input type="file" name="pharmacy_file" required>
+      <button type="submit">Submit</button>
+    </form>
+    <section class="result-section">
+      <h2>Lab Results</h2>
+      {% if lab_results %}
+        <ul>
+        {% for result in lab_results %}
+          <li>
+            <strong>Sample Type:</strong> {{ result.get('Sample Type') or result.get('test_type') }}<br>
+            <strong>Instructions / Result:</strong> {{ result.get('Test Instructions') or result.get('result') }}<br>
+            <strong>Date:</strong> {{ result.get('upload_date') or result.get('submission_date') }}<br>
+            {% if result.get('document_url') or result.get('file_url') %}
+              <a href="{{ result.get('document_url') or result.get('file_url') }}" target="_blank" class="download-link">Download Report</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+        </ul>
+      {% else %}<p>No lab results available.</p>{% endif %}
+    </section>
+    <section class="result-section">
+      <h2>Pharmacy Confirmations</h2>
+      {% if pharmacy_confirmations %}
+        <ul>
+        {% for delivery in pharmacy_confirmations %}
+          <li>
+            <strong>Pharmacy:</strong> {{ delivery.pharmacy_id }}<br>
+            <strong>Medications:</strong> {{ delivery.medications }}<br>
+            <strong>Date:</strong> {{ delivery.confirmation_date }}
+          </li>
+        {% endfor %}
+        </ul>
+      {% else %}<p>No confirmations yet.</p>{% endif %}
+    </section>
+    <section class="result-section">
+      <h2>Messages from Patients</h2>
+      {% if patient_messages %}
+        <ul>
+        {% for msg in patient_messages %}
+          <li>
+            <strong>From:</strong> {{ msg.patient_id }}<br>
+            <strong>Message:</strong> {{ msg.question }}<br>
+            <strong>Time:</strong> {{ msg.confirmation_date }}
+          </li>
+        {% endfor %}
+        </ul>
+      {% else %}<p>No messages found.</p>{% endif %}
+    </section>
+  </div>
+  <script>
+    function showForm(id) {
+      const forms = ['patient-form', 'lab-form', 'pharmacy-form'];
+      forms.forEach(form => {
+        document.getElementById(form).style.display = form === id ? 'block' : 'none';
+      });
+    }
+    showForm('patient-form');
+  </script>
+</body>
+</html>

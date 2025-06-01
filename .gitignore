@@ -1,0 +1,24 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment folders
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Ignore VSCode and PyCharm settings
+.vscode/
+.idea/
+
+# Ignore logs and system files
+*.log
+.DS_Store
+Thumbs.db
+
+# Ignore database and instance folders (for Flask)
+instance/
+*.sqlite3
+

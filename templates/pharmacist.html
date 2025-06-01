@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pharmacist Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-white shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-6">RA BLOCKHEALTH</h2>
+        <ul class="space-y-4">
+            <li><a href="#" class="text-blue-600 font-semibold">Dashboard</a></li>
+            <li><a href="/" class="text-red-600 hover:underline">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-1 p-8 space-y-10 overflow-y-auto">
+
+        <!-- BOX 1: عرض وصفات الأدوية القادمة -->
+        <div>
+            <h1 class="text-2xl font-bold mb-4">Received Prescriptions</h1>
+
+            {% if documents %}
+            <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+                <table class="min-w-full table-auto">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="px-4 py-2">Medication</th>
+                            <th class="px-4 py-2">Submitted By</th>
+                            <th class="px-4 py-2">Upload Date</th>
+                            <th class="px-4 py-2">File</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        {% for doc in documents %}
+                        <tr class="border-b">
+                            <td class="px-4 py-2">{{ doc.medications }}</td>
+                            <td class="px-4 py-2">{{ doc.submitted_by }}</td>
+                            <td class="px-4 py-2">{{ doc.upload_date[:10] }}</td>
+                            <td class="px-4 py-2">
+                                <a href="{{ doc.file_url }}" class="text-blue-500 hover:underline" target="_blank">
+                                    {{ doc.file_name }}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-gray-600">No prescriptions received yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Confirm Delivery to Patient</h2>
+            <form action="{{ url_for('confirm_delivery') }}" method="POST" class="space-y-4">
+                <input type="hidden" name="pharmacy_id" value="{{ user_id }}">
+                <div>
+                    <label class="block text-sm font-medium">Doctor ID</label>
+                    <input type="text" name="doctor_id" required class="w-full border rounded px-3 py-2 mt-1">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium">Medication Delivered</label>
+                    <input type="text" name="medications" required class="w-full border rounded px-3 py-2 mt-1">
+                </div>
+
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Send Confirmation to Doctor
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

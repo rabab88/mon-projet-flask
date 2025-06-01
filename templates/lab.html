@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lab Dashboard - MediCare Pro</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: #1e2a44;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar {
+      width: 280px;
+      background: rgba(255, 255, 255, 0.95);
+      position: fixed;
+      top: 80px;
+      left: 0;
+      height: calc(100vh - 80px);
+      padding-top: 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background: #007bff;
+      color: #fff;
+    }
+    .main-content {
+      margin-left: 280px;
+      margin-top: 80px;
+      padding: 30px;
+      flex: 1;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .tabs button {
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .tabs button.active {
+      color: #007bff;
+      border-bottom: 3px solid #007bff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .box { display: none; }
+    .box.active { display: block; }
+    .doc-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .doc-card p {
+      font-size: 0.9rem;
+      margin: 5px 0;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .submit-btn {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div><i class="fas fa-vials"></i> MediCare Pro - Lab Dashboard</div>
+    <div><button onclick="window.location.href='/'" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
+  </div>
+
+  <div class="sidebar">
+    <a href="#" onclick="showTab('sendTestBox')" class="active"><i class="fas fa-upload"></i> Send Results</a>
+    <a href="#" onclick="showTab('blockchainResultsBox')"><i class="fas fa-database"></i> From Blockchain</a>
+  </div>
+
+  <div class="main-content">
+    <div class="tabs">
+      <button class="active" onclick="showTab('sendTestBox')">Send Results</button>
+      <button onclick="showTab('blockchainResultsBox')">From Blockchain</button>
+    </div>
+
+    <div class="container">
+      <!-- Send Test Results Form -->
+      <div id="sendTestBox" class="box active">
+        <h3>Send Test Results to Doctor</h3>
+        <form id="sendTestForm" action="/lab_send_data" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="doctor_id">Doctor ID</label>
+            <input type="text" id="doctor_id" name="doctor_id" placeholder="Enter Doctor ID" required>
+          </div>
+          <div class="form-group">
+            <label for="lab_id">Lab ID</label>
+            <input type="text" id="lab_id" name="lab_id" placeholder="Enter lab ID" required>
+          </div>
+          <div class="form-group">
+            <label for="result">Test Result</label>
+            <textarea id="result" name="result" rows="5" placeholder="Write result details..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="file">Upload File </label>
+            <input type="file" id="file" name="file" required>
+          </div>
+          <button type="submit" class="submit-btn">Send</button>
+        </form>
+      </div>
+
+      <!-- Blockchain Results View -->
+      <div id="blockchainResultsBox" class="box">
+        <h3>Incoming Test Requests from Blockchain</h3>
+        {% if blockchain_data %}
+          {% for test in blockchain_data %}
+            <div class="doc-card">
+              <p><strong>Lab ID:</strong> {{ test.lab_id }}</p>
+              <p><strong>Sample Type:</strong> {{ test["Sample Type"] }}</p>
+              <p><strong>Test Instructions:</strong> {{ test["Test Instructions"] }}</p>
+              <p><strong>Date:</strong> {{ test.upload_date[:10] }}</p>
+              <a href="{{ test.file_url }}" target="_blank" class="submit-btn">Download File</a>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No incoming test requests found.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      const boxes = document.querySelectorAll('.box');
+      boxes.forEach(box => box.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+
+      const buttons = document.querySelectorAll('.tabs button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`.tabs button[onclick*="${tabId}"]`).classList.add('active');
+
+      const links = document.querySelectorAll('.sidebar a');
+      links.forEach(link => link.classList.remove('active'));
+      document.querySelector(`.sidebar a[onclick*="${tabId}"]`).classList.add('active');
+    }
+  </script>
+</body>
+</html>

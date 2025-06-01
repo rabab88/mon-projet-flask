@@ -1,0 +1,46 @@
+package app;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+@WebServlet("/ModifArticle")
+public class ModifArticle extends HttpServlet {
+ private static final long serialVersionUID = 1L;       
+ protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 try {
+			  DBConnection.seconnecter();
+			  Connection con = DBConnection.con;
+			  int id=Integer.parseInt(request.getParameter("id"));
+			  String nom=request.getParameter("nom");
+			  int prix=Integer.parseInt(request.getParameter("prix"));
+			  int qte=Integer.parseInt(request.getParameter("qte"));
+			  PreparedStatement Stmt = con.prepareStatement("update article set nom=? , prix=? , qte=? where idart=?");
+			  Stmt.setString(1, nom);
+			  Stmt.setInt(2, prix);
+			  Stmt.setInt(3, qte);
+			  Stmt.setInt(4, id);
+			  Stmt.executeUpdate();
+			  request.setAttribute("msg", "Article modifié avec succès ....");
+			  request.getRequestDispatcher("./JSP/modifarticle.jsp").forward(request, response);
+			  } catch (Exception e) {
+				e.printStackTrace();
+			  }
+	}
+
+public ModifArticle() {
+    super();
+    // TODO Auto-generated constructor stub
+}
+
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// TODO Auto-generated method stub
+	response.getWriter().append("Served at: ").append(request.getContextPath());
+}
+
+
+
+}
