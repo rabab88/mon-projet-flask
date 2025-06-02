@@ -4,6 +4,8 @@ from forms import RegistrationForm, LoginForm, LabSubmissionForm
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
+import random
+import string
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecretkey'
@@ -15,17 +17,24 @@ smart_contract = SmartContract()
 def home():
     return render_template("home.html")
 
+def generate_password(length=8):
+    # توليد كلمة مرور عشوائية تتكون من حروف وأرقام
+    chars = string.ascii_letters + string.digits
+    return ''.join(random.choice(chars) for _ in range(length))
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        password = generate_password()
         user_data = {
             'type': 'registration',
             'name': form.name.data,
             'national_id': form.national_id.data,
             'phone': form.phone.data,
             'birth_date': form.birth_date.data.strftime('%Y-%m-%d'),
-            'profession': form.profession.data
+            'profession': form.profession.data,
+            'password': password
         }
         is_valid, message = smart_contract.validate_registration(user_data, blockchain)
         if not is_valid:
@@ -35,7 +44,7 @@ def register():
         user_data['user_id'] = user_id
         qr_path = generate_qr_code(user_id)
         blockchain.add_block(user_data)
-        return render_template("user_profile.html", user_id=user_id, qr_path=qr_path)
+        return render_template("user_profile.html", user_id=user_id, qr_path=qr_path, password=password)
 
     return render_template("register.html", form=form)
 
@@ -44,7 +53,22 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user_id = form.user_id.data
-        profession = form.profession.data
+        input_password = form.password.data  # بدل national_id أصبح password
+
+        user_data = None
+        for block in blockchain.chain:
+            data = block.data
+            if data.get("type") == "registration" and data.get("user_id") == user_id:
+                user_data = data
+                break
+
+        if not user_data:
+            return render_template('login.html', form=form, error="User ID not found.")
+
+        if user_data.get("password") != input_password:
+            return render_template('login.html', form=form, error="Incorrect password.")
+
+        profession = user_data.get("profession")
         if profession == 'doctor':
             return redirect(url_for('doctor', user_id=user_id))
         elif profession == 'patient':
@@ -53,7 +77,12 @@ def login():
             return redirect(url_for('pharmacist', user_id=user_id))
         elif profession == 'lab':
             return redirect(url_for('lab', user_id=user_id))
+        else:
+            return render_template('login.html', form=form, error="Unknown profession type.")
+
     return render_template('login.html', form=form)
+
+
 
 @app.route('/doctor/<user_id>', methods=["GET", "POST"])
 def doctor(user_id):

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - MediCare Pro</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Login - RA BLOCKHEALTH</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -15,379 +15,184 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background: linear-gradient(rgba(0, 123, 255, 0.6), rgba(0, 123, 255, 0.6)),
+        url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      transition: background 0.3s ease;
-    }
-
-    body.dark-mode {
-      background: linear-gradient(135deg, #1e2a44 0%, #2c3e50 100%);
-      color: #e0e0e0;
-    }
-
-    .header {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      color: #fff;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .header .logo {
-      display: flex;
-      align-items: center;
-      font-size: 1.6rem;
-      font-weight: 600;
-    }
-
-    .header .logo i {
-      margin-right: 10px;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-
-    .header .user-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .header .user-actions button {
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .header .user-actions button:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .header .theme-toggle {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.2rem;
-      cursor: pointer;
-      margin-left: 20px;
-    }
-
-    .main-content {
-      display: flex;
       justify-content: center;
       align-items: center;
-      flex: 1;
-      padding: 80px 20px 20px;
     }
 
-    .container {
+    .login-container {
       background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 500px;
-      animation: fadeIn 1s ease;
-    }
-
-    body.dark-mode .container {
-      background: rgba(30, 42, 68, 0.9);
-      color: #e0e0e0;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .container h1 {
-      color: #333;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
       text-align: center;
+    }
+
+    .logo {
       display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 10px;
-    }
-
-    body.dark-mode .container h1 {
-      color: #e0e0e0;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    .form-group label {
-      font-weight: 500;
-      display: flex;
       align-items: center;
-      margin-bottom: 8px;
-      color: #333;
-      gap: 8px;
+      margin-bottom: 1.5rem;
     }
 
-    body.dark-mode .form-group label {
-      color: #e0e0e0;
+    .logo img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      animation: spin 12s linear infinite;
     }
 
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 12px 12px 12px 40px;
-      border: 2px solid #90EE90;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      background: #f9f9f9;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    @keyframes spin {
+      0% { transform: rotate(0); }
+      100% { transform: rotate(360deg); }
     }
 
-    body.dark-mode .form-group input, body.dark-mode .form-group select {
-      background: #3a4a68;
-      color: #e0e0e0;
-      border-color: #1e90ff;
+    .logo span {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .form-group input:focus, .form-group select:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
-      outline: none;
+    h2 {
+      font-size: 1.6rem;
+      color: #0072ff;
+      margin-bottom: 1rem;
     }
 
-    .form-group i {
-      position: absolute;
-      right: 12px;
-      top: 38px;
-      color: #007bff;
-      font-size: 1.1rem;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    button[type="submit"] {
-      background: linear-gradient(90deg, #007bff, #1e90ff);
-      color: white;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    input[type="text"],
+    input[type="password"] {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
       font-size: 1rem;
-      width: 100%;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #00c6ff;
+      box-shadow: 0 0 5px rgba(0, 198, 255, 0.5);
+    }
+
+    .password-wrapper {
       position: relative;
-      overflow: hidden;
-      transition: transform 0.3s ease;
     }
 
-    button[type="submit"]:hover {
-      transform: translateY(-2px);
-    }
-
-    button[type="submit"]::after {
-      content: '';
+    .toggle-password {
       position: absolute;
       top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.4s ease, height 0.4s ease;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #777;
     }
 
-    button[type="submit"]:hover::after {
-      width: 200px;
-      height: 200px;
+    input[type="submit"] {
+      padding: 0.75rem;
+      background-color: #0072ff;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
-    .notification {
-      background: #d1e7dd;
-      color: #0f5132;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 20px;
-      display: none;
-      text-align: center;
-      transition: opacity 0.3s ease;
+    input[type="submit"]:hover {
+      background-color: #005ec2;
     }
 
-    body.dark-mode .notification {
-      background: #2a9d8f;
-      color: #e0e0e0;
+    .error-message {
+      color: #d93025;
+      font-size: 0.95rem;
     }
 
-    .notification.show {
-      display: block;
-      opacity: 1;
+    .links {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
     }
 
-    .notification.error {
-      background: #f8d7da;
-      color: #842029;
-    }
-
-    body.dark-mode .notification.error {
-      background: #a7323a;
-      color: #e0e0e0;
-    }
-
-    .register-link {
-      font-size: 0.9rem;
-      color: #666;
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    body.dark-mode .register-link {
-      color: #b0b0b0;
-    }
-
-    .register-link a {
-      color: #007bff;
+    .links a {
+      color: #0072ff;
       text-decoration: none;
     }
 
-    .register-link a:hover {
+    .links a:hover {
       text-decoration: underline;
     }
 
-    .footer {
-      background: #1e2a44;
-      color: #e0e0e0;
-      padding: 20px;
-      margin-top: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .footer a {
-      color: #1e90ff;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        width: 90%;
-        padding: 20px;
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 25px;
       }
 
-      .header .user-actions {
-        gap: 5px;
+      .logo span {
+        font-size: 1.5rem;
       }
 
-      .header .user-actions button {
-        padding: 6px 10px;
-        font-size: 0.8rem;
+      .logo img {
+        width: 40px;
+        height: 40px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header" role="banner">
+  <div class="login-container">
     <div class="logo">
-      <i class="fas fa-clinic-medical"></i>
-      MediCare Pro
+      <img src="https://img.icons8.com/ios-filled/100/ffffff/health-data.png" alt="Logo">
+      <span>RA BLOCKHEALTH</span>
     </div>
-    <div class="user-actions">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
-      </button>
-    </div>
-  </div>
 
-  <div class="main-content" role="main">
-    <div class="container">
-      <h1><i class="fas fa-sign-in-alt"></i> Login</h1>
-      <form id="loginForm" method="POST">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-          <label for="user_id"><i class="fas fa-user"></i> User ID</label>
-          <i class="fas fa-user"></i>
-          {{ form.user_id(id="user_id", placeholder="Enter user ID", required=True, **{"aria-required": "true"}) }}
-        </div>
-        <div class="form-group">
-          <label for="profession"><i class="fas fa-briefcase"></i> Profession</label>
-          <i class="fas fa-briefcase"></i>
-          {{ form.profession(id="profession", required=True, **{"aria-required": "true"}) }}
-        </div>
-        <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
-      </form>
-      {% if error %}
-      <div class="notification error show">
-        <strong>Error!</strong> {{ error }}
+    <h2>Login to RA BLOCKHEALTH</h2>
+
+    {% if error %}
+      <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+    {% for field_errors in form.errors.values() %}
+      {% for err in field_errors %}
+        <div class="error-message">{{ err }}</div>
+      {% endfor %}
+    {% endfor %}
+
+    <form method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.user_id(size=32, placeholder="Enter your User ID") }}
+
+      <div class="password-wrapper">
+        {{ form.password(size=32, placeholder="Enter your Password") }}
+      
       </div>
-      {% endif %}
-      <p class="register-link">Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+
+      <input type="submit" value="Login">
+    </form>
+
+    <div class="links">
+      <p>Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+      <p><a href="{{ url_for('home') }}">Back to Home</a></p>
     </div>
   </div>
 
-  <div class="footer" role="contentinfo">
-    <div>
-      © 2025 MediCare Pro. All rights reserved.
-    </div>
-    <div>
-      <a href="#">Support</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">System Status</a>
-    </div>
-  </div>
-
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      const icon = document.querySelector('.theme-toggle i');
-      icon.classList.toggle('fa-moon');
-      icon.classList.toggle('fa-sun');
-    }
-
-    function handleFormSubmission(formId, errorId) {
-      const form = document.getElementById(formId);
-      const errorNotification = document.getElementById(errorId);
-      const submitBtn = form.querySelector('button[type="submit"]');
-
-      form.addEventListener('submit', function(event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          errorNotification.classList.add('show');
-          setTimeout(() => {
-            errorNotification.classList.remove('show');
-          }, 3000);
-          form.reportValidity();
-        } else {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
-        }
-      });
-
-      submitBtn.dataset.originalText = submitBtn.innerHTML;
-    }
-
-    handleFormSubmission('loginForm', 'errorNotification');
-  </script>
+  
 </body>
 </html>

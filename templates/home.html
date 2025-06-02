@@ -22,101 +22,101 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     body.dark-mode {
-      background: linear-gradient(rgba(30, 42, 68, 0.7), rgba(30, 42, 68, 0.7)), url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=2070&auto=format&fit=crop');
+      background: linear-gradient(rgba(20, 30, 48, 0.8), rgba(20, 30, 48, 0.8)), url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=2070&auto=format&fit=crop');
       color: #e0e0e0;
     }
 
     .header {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       color: #fff;
-      padding: 15px 40px;
+      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       position: fixed;
-      width: 100%;
       top: 0;
+      width: 100%;
       z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .header .logo {
+    .logo {
       display: flex;
       align-items: center;
     }
 
-    .header .logo img {
+    .logo img {
       width: 50px;
       height: 50px;
       margin-right: 10px;
-      animation: spin 10s linear infinite;
+      animation: spin 12s linear infinite;
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
+      0% { transform: rotate(0); }
       100% { transform: rotate(360deg); }
     }
 
-    .header .logo span {
+    .logo span {
       font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(90deg, #007bff, #1e90ff);
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .header .nav {
+    .nav {
       display: flex;
+      gap: 15px;
       align-items: center;
-      gap: 20px;
     }
 
-    .header .nav a, .header .nav button {
-      color: #fff;
-      text-decoration: none;
+    .nav a, .nav button {
+      padding: 8px 18px;
       font-size: 1rem;
-      padding: 10px 20px;
-      border-radius: 25px;
+      color: white;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      text-decoration: none;
       transition: background 0.3s ease, transform 0.3s ease;
     }
 
-    .header .nav a:hover, .header .nav button:hover {
-      background: rgba(255, 255, 255, 0.2);
+    .nav a:hover, .nav button:hover {
+      background: rgba(255, 255, 255, 0.3);
       transform: translateY(-2px);
     }
 
-    .header .theme-toggle {
+    .theme-toggle {
       background: none;
       border: none;
-      color: #fff;
-      font-size: 1.4rem;
-      cursor: pointer;
+      font-size: 1.3rem;
     }
 
     .main-content {
+      flex: 1;
+      padding: 120px 20px 40px;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex: 1;
-      padding: 100px 20px 20px;
-      position: relative;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
       border-radius: 20px;
-      padding: 50px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-      width: 100%;
+      padding: 40px;
       max-width: 800px;
-      animation: fadeIn 1.5s ease;
+      width: 100%;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
       text-align: center;
+      animation: fadeIn 1.2s ease-out;
       position: relative;
       z-index: 1;
     }
@@ -131,14 +131,13 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .container h1 {
-      background: linear-gradient(90deg, #007bff, #1e90ff);
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-size: 3rem;
+      animation: glow 2s infinite alternate;
       margin-bottom: 20px;
-      text-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
-      animation: glow 2s ease-in-out infinite alternate;
     }
 
     @keyframes glow {
@@ -146,134 +145,104 @@
       to { text-shadow: 0 0 25px rgba(0, 123, 255, 0.9); }
     }
 
-    body.dark-mode .container h1 {
-      background: linear-gradient(90deg, #1e90ff, #00b7eb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto 30px;
     }
 
-    .container .hero-image {
+    body.dark-mode p {
+      color: #e0e0e0;
+    }
+
+    .hero-image {
       width: 100%;
       max-width: 400px;
-      margin: 25px auto;
+      margin: 20px auto;
       border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      animation: float 4s ease-in-out infinite;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      animation: float 5s ease-in-out infinite;
     }
 
     @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0); }
-    }
-
-    .container p {
-      font-size: 1.2rem;
-      color: #333;
-      margin-bottom: 40px;
-      line-height: 1.8;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    body.dark-mode .container p {
-      color: #e0e0e0;
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .decorative-icon {
       position: absolute;
-      opacity: 0.15;
+      opacity: 0.12;
       z-index: 0;
-    }
-
-    .decorative-icon.heartbeat {
-      left: 5%;
-      top: 15%;
-      width: 120px;
-      transform: rotate(-20deg);
     }
 
     .decorative-icon.blockchain {
       right: 5%;
-      bottom: 15%;
-      width: 120px;
-      transform: rotate(20deg);
+      bottom: 10%;
+      width: 100px;
     }
 
     .footer {
       background: #1e2a44;
       color: #e0e0e0;
-      padding: 25px;
+      padding: 20px 30px;
+      text-align: center;
+      font-size: 0.9rem;
       margin-top: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      width: 100%;
     }
 
     .footer a {
       color: #1e90ff;
       text-decoration: none;
-      margin: 0 15px;
-      transition: color 0.3s ease;
+      margin: 0 10px;
     }
 
     .footer a:hover {
-      color: #00b7eb;
       text-decoration: underline;
+      color: #00b7eb;
     }
 
     @media (max-width: 768px) {
       .container {
-        width: 90%;
-        padding: 30px;
+        padding: 25px;
       }
 
-      .container h1 {
-        font-size: 2.2rem;
+      h1 {
+        font-size: 2rem;
       }
 
-      .container .hero-image {
+      .hero-image {
         max-width: 300px;
       }
 
-      .container p {
+      p {
         font-size: 1rem;
       }
 
-      .header .nav {
-        gap: 10px;
-      }
-
-      .header .nav a, .header .nav button {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-      }
-
-      .header .logo img {
-        width: 40px;
-        height: 40px;
-      }
-
-      .header .logo span {
+      .logo span {
         font-size: 1.5rem;
       }
 
-      .decorative-icon {
-        width: 80px;
+      .logo img {
+        width: 40px;
+        height: 40px;
       }
     }
 
     @media (max-width: 480px) {
-      .container .hero-image {
-        max-width: 250px;
-      }
-
-      .header .nav {
+      .nav {
         flex-wrap: wrap;
         justify-content: center;
+      }
+
+      .nav a, .nav button {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+      }
+
+      .hero-image {
+        max-width: 250px;
       }
     }
   </style>
@@ -299,11 +268,15 @@
       <img src="https://www.statnews.com/wp-content/uploads/2017/12/Blockchain-healthcare-graphic-768x432.png" alt="Blockchain in healthcare" class="hero-image">
       <p>Join our cutting-edge platform to manage medical records securely, transparently, and efficiently using blockchain technology.</p>
     </div>
-    
     <img src="https://img.icons8.com/ios-filled/100/007bff/blockchain-technology.png" alt="Blockchain icon" class="decorative-icon blockchain">
   </div>
 
-  
+  <div class="footer">
+    &copy; 2025 RA BLOCKHEALTH — All rights reserved.
+    <br>
+    <a href="#">Privacy</a> | <a href="#">Terms</a> | <a href="#">Contact</a>
+  </div>
+
   <script>
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');

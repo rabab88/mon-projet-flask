@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* نفس التنسيقات السابقة */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Poppins', sans-serif;
@@ -97,23 +98,56 @@
       <p><strong>Nonce:</strong> {{ block.nonce }}</p>
 
       <p><strong>Sender ID:</strong>
-        {% if block.data.submitted_by %}{{ block.data.submitted_by }}
-        {% elif block.data.patient_id and block.data.type == 'delivery_confirmation' %}{{ block.data.patient_id }}
-        {% elif block.data.pharmacy_id and block.data.type == 'delivery_confirmation' %}{{ block.data.pharmacy_id }}
-        {% elif block.data.lab_id and not block.data.submitted_by %}{{ block.data.lab_id }}
-        {% else %}N/A{% endif %}
+        {% if block.data.type == 'patient_question' %}
+          {{ block.data.patient_id }}
+        {% elif block.data.submitted_by %}
+          {{ block.data.submitted_by }}
+        {% elif block.data.patient_id and block.data.type == 'delivery_confirmation' %}
+          {{ block.data.patient_id }}
+        {% elif block.data.pharmacy_id and block.data.type == 'delivery_confirmation' %}
+          {{ block.data.pharmacy_id }}
+        {% elif block.data.lab_id and not block.data.submitted_by %}
+          {{ block.data.lab_id }}
+        {% else %}
+          N/A
+        {% endif %}
       </p>
 
       <p><strong>Receiver ID:</strong>
-        {% if block.data.patient_id and block.data.type == 'medical_document' %}{{ block.data.patient_id }}
-        {% elif block.data.doctor_id %}{{ block.data.doctor_id }}
-        {% elif block.data.lab_id and block.data.submitted_by %}{{ block.data.lab_id }}
-        {% elif block.data.pharmacy_id and block.data.type == 'pharmacy_submission' %}{{ block.data.pharmacy_id }}
-        {% else %}N/A{% endif %}
+        {% if block.data.patient_id and block.data.type == 'medical_document' %}
+          {{ block.data.patient_id }}
+        {% elif block.data.doctor_id %}
+          {{ block.data.doctor_id }}
+        {% elif block.data.lab_id and block.data.submitted_by %}
+          {{ block.data.lab_id }}
+        {% elif block.data.pharmacy_id and block.data.type == 'pharmacy_submission' %}
+          {{ block.data.pharmacy_id }}
+        {% elif block.data.type == 'passion_question' and block.data.get('doctor_id') %}
+          {{ block.data.doctor_id }}
+        {% elif block.data.type == 'passion_question' %}
+          Doctor
+        {% else %}
+          N/A
+        {% endif %}
       </p>
 
       <p><strong>Raw Data:</strong></p>
-      <pre>{{ block.data | tojson(indent=2) }}</pre>
+      {% if block.data.type == 'registration' %}
+        <pre>
+{
+  "user_id": "{{ block.data.user_id }}",
+  "role": "{{ block.data.profession }}"
+}
+        </pre>
+      {% else %}
+        <pre>{
+{% for key, value in block.data.items() %}
+  {% if key not in ['file_path', 'file_url', 'document_url', 'file_orn'] %}
+  "{{ key }}": "{{ value }}"{% if not loop.last %},{% endif %}
+  {% endif %}
+{% endfor %}
+}</pre>
+      {% endif %}
     </div>
     {% endfor %}
   </div>
