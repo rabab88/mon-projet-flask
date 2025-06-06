@@ -1,0 +1,276 @@
+/* Reset & Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(rgba(94, 145, 221, 0.85), rgba(39, 93, 175, 0.85)),
+   url('images/doctor.jpeg') no-repeat center center/cover;
+  color: #f5f5f5;
+  overflow: hidden;
+}
+
+/* Header */
+header {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+header h1 {
+  font-size: 28px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.nav-buttons a {
+  background-color: rgba(0, 201, 167, 0.8);
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 25px;
+  margin-left: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-buttons a:hover {
+  background-color: #00b89f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 201, 167, 0.4);
+}
+
+/* Sidebar */
+.sidebar, .w-64 {
+  width: 220px !important;
+  background-color: rgba(255, 255, 255, 0.05);
+  height: 100%;
+  padding: 30px 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.sidebar h2, .w-64 h2 {
+  margin-bottom: 25px;
+  font-size: 22px;
+  color: hsl(170, 100%, 39%);
+}
+
+.sidebar ul, .w-64 ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Sidebar links styled as buttons */
+.sidebar ul li a, .w-64 ul li a {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  color: #ccc;
+  font-size: 16px;
+  text-align: center;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover, .w-64 ul li a:hover {
+  background-color: #00fff0;
+  color: #002929;
+  font-weight: 600;
+  border-color: #00fff0;
+  box-shadow: 0 0 10px #00fff0;
+}
+
+.sidebar ul li a.active, .w-64 ul li a.active {
+  background-color: #a4ff00;
+  color: #002929;
+  font-weight: bold;
+  border-color: #a4ff00;
+  box-shadow: 0 0 12px #a4ff00;
+}
+
+/* Main content */
+.flex-1 {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+h1, h2 {
+  color: #a4ff00;
+  margin-bottom: 20px;
+}
+
+/* Cards & Form Container */
+.bg-white {
+  background-color: transparent !important;
+  color: inherit;
+  padding: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+/* Form box styling */
+.delivery-form {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px 25px;
+  border: 1px solid rgba(0, 201, 167, 0.35);
+  background-color: rgba(10, 25, 47, 0.85); /* خلفية متناسقة مع باقي الصفحات */
+  box-shadow: 0 6px 18px rgba(0, 201, 167, 0.2);
+  border-radius: 16px; /* زوايا ناعمة لكن غير مبالغ بها */
+  transition: all 0.3s ease;
+}
+
+.delivery-form:hover {
+  box-shadow: 0 10px 25px rgba(0, 201, 167, 0.35);
+  transform: scale(1.01);
+}
+
+
+.delivery-form:hover {
+  box-shadow: 0 12px 24px rgba(0, 201, 167, 0.5);
+  transform: scale(1.01);
+  padding: 20px;
+}
+
+.prescription-table-box {
+  background-color: #1402577e;
+  color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 10px #6bffff9d;
+  backdrop-filter: blur(6px);
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #fff;
+}
+
+input[type="text"],
+textarea,
+.form-control {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.486);
+  border: 1px solid #00c9a7;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: #ccc;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+.form-control:focus {
+  border-color: #a4ff00;
+  outline: none;
+  box-shadow: 0 0 8px #a4ff00;
+}
+
+button.btn-primary {
+  background-color: #00c9a7;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 12px 28px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.btn-primary:hover {
+  background-color: #00b89f;
+  transform: scale(1.05);
+}
+
+/* Table Styling */
+table.dataTable {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead th {
+  background-color: rgba(0, 201, 167, 0.2) !important;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+table tbody td {
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(0, 201, 167, 0.1);
+}
+
+table tbody td a {
+  color: #00fff0;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+table tbody td a:hover {
+  color: #a4ff00;
+}
+
+/* Section Toggle */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+.sidebar-btn {
+  /* نفس تنسيق الروابط الجانبية */
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: transparent;
+  border: 1.5px solid transparent;
+  color: #ccc;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sidebar-btn:hover {
+  background-color: #00fff0;
+  color: #002929;
+  font-weight: 600;
+  border-color: #00fff0;
+  box-shadow: 0 0 10px #00fff0;
+}
+
+.sidebar-btn.active {
+  background-color: #a4ff00;
+  color: #002929;
+  font-weight: bold;
+  border-color: #a4ff00;
+  box-shadow: 0 0 12px #a4ff00;
+}

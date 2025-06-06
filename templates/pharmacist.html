@@ -1,47 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Pharmacist Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pharmacist.css') }}" />
 </head>
 <body class="bg-gray-100 text-gray-900">
 
+<header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-with-700 text-center">RA BLOCKHEALTH - Pharmacist Dashboard</h1>
+    <div class="nav-buttons space-x-4">
+        <a href="{{ url_for('blockchain_view') }}" class="text-blue-600 hover:underline">
+            <i class="fa-brands fa-hive"></i> View Blockchain
+        </a>
+        <a href="{{ url_for('home') }}" class="text-red-600 hover:underline">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
+</header>
+
 <div class="flex min-h-screen">
     <!-- Sidebar -->
-    <div class="w-64 bg-white shadow-lg p-6">
-        <h2 class="text-2xl font-bold mb-6">RA BLOCKHEALTH</h2>
+    <nav class="w-64 bg-white shadow-lg p-6 sidebar">
+        <h2 class="text-2xl font-bold mb-6">Menu</h2>
         <ul class="space-y-4">
-            <li><a href="#" class="text-blue-600 font-semibold">Dashboard</a></li>
-            <li><a href="/" class="text-red-600 hover:underline">Logout</a></li>
+            <li>
+                <button type="button" class="sidebar-btn active" data-section="prescriptionsSection">Prescriptions</button>
+            </li>
+            <li>
+                <button type="button" class="sidebar-btn" data-section="deliverySection">Delivery Confirmation</button>
+            </li>
         </ul>
-    </div>
+    </nav>
 
-    <!-- Main -->
-    <div class="flex-1 p-8 space-y-10 overflow-y-auto">
+    <!-- Main Content -->
+    <main class="flex-1 p-8 space-y-10 overflow-y-auto">
 
-        <!-- BOX 1: عرض وصفات الأدوية القادمة -->
-        <div>
+        <!-- Received Prescriptions -->
+        <section id="prescriptionsSection" class="section-content">
             <h1 class="text-2xl font-bold mb-4">Received Prescriptions</h1>
 
             {% if documents %}
-            <div class="bg-white shadow-md rounded-lg overflow-x-auto">
-                <table class="min-w-full table-auto">
-                    <thead class="bg-gray-200">
+            <div class="prescription-table-box">
+
+                <table id="medicineTable" class="table table-striped">
+                    <thead class="table-light">
                         <tr>
-                            <th class="px-4 py-2">Medication</th>
-                            <th class="px-4 py-2">Submitted By</th>
-                            <th class="px-4 py-2">Upload Date</th>
-                            <th class="px-4 py-2">File</th>
+                            <th>Medication</th>
+                            <th>Submitted By</th>
+                            <th>Upload Date</th>
+                            <th>File</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white">
+                    <tbody>
                         {% for doc in documents %}
-                        <tr class="border-b">
-                            <td class="px-4 py-2">{{ doc.medications }}</td>
-                            <td class="px-4 py-2">{{ doc.submitted_by }}</td>
-                            <td class="px-4 py-2">{{ doc.upload_date[:10] }}</td>
-                            <td class="px-4 py-2">
+                        <tr>
+                            <td>{{ doc.medications }}</td>
+                            <td>{{ doc.submitted_by }}</td>
+                            <td>{{ doc.upload_date[:10] }}</td>
+                            <td>
                                 <a href="{{ doc.file_url }}" class="text-blue-500 hover:underline" target="_blank">
                                     {{ doc.file_name }}
                                 </a>
@@ -54,30 +88,69 @@
             {% else %}
             <p class="text-gray-600">No prescriptions received yet.</p>
             {% endif %}
-        </div>
+        </section>
 
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-xl font-semibold mb-4">Confirm Delivery to Patient</h2>
+        <!-- Confirm Delivery Form -->
+      <section id="deliverySection" class="section-content hidden">
+
+
+            <h2 class="text-xl font-semibold mb-4 text-hsl-700">Confirm Delivery to Patient</h2>
             <form action="{{ url_for('confirm_delivery') }}" method="POST" class="space-y-4">
-                <input type="hidden" name="pharmacy_id" value="{{ user_id }}">
+                <input type="hidden" name="pharmacy_id" value="{{ user_id }}" />
+
                 <div>
-                    <label class="block text-sm font-medium">Doctor ID</label>
-                    <input type="text" name="doctor_id" required class="w-full border rounded px-3 py-2 mt-1">
+                    <label class="form-label">Doctor ID</label>
+                    <input type="text" name="doctor_id" required class="form-control" />
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium">Medication Delivered</label>
-                    <input type="text" name="medications" required class="w-full border rounded px-3 py-2 mt-1">
+                    <label class="form-label">Medication Delivered</label>
+                    <input type="text" name="medications" required class="form-control" />
                 </div>
 
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Send Confirmation to Doctor
+                <button type="submit" class="btn btn-primary mt-3">
+                    <i class="fas fa-paper-plane me-1"></i> Send Confirmation to Doctor
                 </button>
             </form>
-        </div>
+        </section>
 
-    </div>
+    </main>
 </div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#medicineTable').DataTable({
+            lengthChange: false,
+            info: false,
+            paging: true,
+            searching: true
+        });
+
+        // Sidebar button toggle
+        const buttons = document.querySelectorAll('.sidebar-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Hide all sections
+                document.querySelectorAll('.section-content').forEach(section => {
+                    section.classList.add('hidden');
+                });
+
+                // Show clicked section
+                const sectionToShow = btn.getAttribute('data-section');
+                document.getElementById(sectionToShow).classList.remove('hidden');
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

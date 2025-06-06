@@ -51,7 +51,7 @@ class Blockchain:
 
         if os.path.exists(self.blockchain_file):
             self.load_blockchain()
-            print("Loaded existing blockchain")
+            print("✅ Loaded existing blockchain")
         else:
             self.create_genesis_block()
             print("Created genesis block")

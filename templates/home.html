@@ -1,316 +1,97 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to MediCare Pro</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RA BLOCKHEALTH - MediCare Pro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  
+  <!-- AOS CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet"/>
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(rgba(0, 123, 255, 0.6), rgba(0, 123, 255, 0.6)), url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=2070&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: background 0.3s ease;
-    }
-
-    body.dark-mode {
-      background: linear-gradient(rgba(30, 42, 68, 0.7), rgba(30, 42, 68, 0.7)), url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=2070&auto=format&fit=crop');
-      color: #e0e0e0;
-    }
-
-    .header {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(15px);
-      color: #fff;
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .header .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .header .logo img {
-      width: 50px;
-      height: 50px;
-      margin-right: 10px;
-      animation: spin 10s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .header .logo span {
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, #007bff, #1e90ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .header .nav {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .header .nav a, .header .nav button {
-      color: #fff;
-      text-decoration: none;
-      font-size: 1rem;
-      padding: 10px 20px;
-      border-radius: 25px;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    .header .nav a:hover, .header .nav button:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .header .theme-toggle {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-
-    .main-content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex: 1;
-      padding: 100px 20px 20px;
-      position: relative;
-    }
-
-    .container {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      padding: 50px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-      width: 100%;
-      max-width: 800px;
-      animation: fadeIn 1.5s ease;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    body.dark-mode .container {
-      background: rgba(30, 42, 68, 0.85);
-      color: #e0e0e0;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .container h1 {
-      background: linear-gradient(90deg, #007bff, #1e90ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 3rem;
-      margin-bottom: 20px;
-      text-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 5px rgba(0, 123, 255, 0.5); }
-      to { text-shadow: 0 0 25px rgba(0, 123, 255, 0.9); }
-    }
-
-    body.dark-mode .container h1 {
-      background: linear-gradient(90deg, #1e90ff, #00b7eb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .container .hero-image {
-      width: 100%;
-      max-width: 400px;
-      margin: 25px auto;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0); }
-    }
-
-    .container p {
-      font-size: 1.2rem;
-      color: #333;
-      margin-bottom: 40px;
-      line-height: 1.8;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    body.dark-mode .container p {
-      color: #e0e0e0;
-    }
-
-    .decorative-icon {
-      position: absolute;
-      opacity: 0.15;
-      z-index: 0;
-    }
-
-    .decorative-icon.heartbeat {
-      left: 5%;
-      top: 15%;
-      width: 120px;
-      transform: rotate(-20deg);
-    }
-
-    .decorative-icon.blockchain {
-      right: 5%;
-      bottom: 15%;
-      width: 120px;
-      transform: rotate(20deg);
-    }
-
-    .footer {
-      background: #1e2a44;
-      color: #e0e0e0;
-      padding: 25px;
-      margin-top: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .footer a {
-      color: #1e90ff;
-      text-decoration: none;
-      margin: 0 15px;
-      transition: color 0.3s ease;
-    }
-
-    .footer a:hover {
-      color: #00b7eb;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        width: 90%;
-        padding: 30px;
-      }
-
-      .container h1 {
-        font-size: 2.2rem;
-      }
-
-      .container .hero-image {
-        max-width: 300px;
-      }
-
-      .container p {
-        font-size: 1rem;
-      }
-
-      .header .nav {
-        gap: 10px;
-      }
-
-      .header .nav a, .header .nav button {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-      }
-
-      .header .logo img {
-        width: 40px;
-        height: 40px;
-      }
-
-      .header .logo span {
-        font-size: 1.5rem;
-      }
-
-      .decorative-icon {
-        width: 80px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container .hero-image {
-        max-width: 250px;
-      }
-
-      .header .nav {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-    }
-  </style>
+  <!-- رابط ملف CSS الخاص -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 <body>
-  <div class="header" role="banner">
-    <div class="logo">
-      <img src="https://img.icons8.com/ios-filled/100/ffffff/health-data.png" alt="MediCare Pro Logo">
-      <span>RA BLOCKHEALTH</span>
-    </div>
-    <div class="nav">
-      <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
-      <a href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i> Register</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
-      </button>
-    </div>
-  </div>
 
-  <div class="main-content" role="main">
-    <div class="container">
-      <h1>Empowering Healthcare with Blockchain</h1>
-      <img src="https://www.statnews.com/wp-content/uploads/2017/12/Blockchain-healthcare-graphic-768x432.png" alt="Blockchain in healthcare" class="hero-image">
-      <p>Join our cutting-edge platform to manage medical records securely, transparently, and efficiently using blockchain technology.</p>
+  <!-- Header -->
+  <header class="header" data-aos="fade-down" data-aos-duration="1000">
+    <div class="logo">RA BLOCKHEALTH</div>
+    <header>
+    
+  
+      
+    </div>
+    <div class="nav-buttons">
+      <a href="{{ url_for('blockchain_view') }}"> <i class="fa-brands fa-hive"></i> View Blockchain</a>
+      <a href="{{ url_for('login') }}" class="logout"> <i class="fa-solid fa-right-from-bracket"></i>   Login</a>
     </div>
     
-    <img src="https://img.icons8.com/ios-filled/100/007bff/blockchain-technology.png" alt="Blockchain icon" class="decorative-icon blockchain">
-  </div>
-
+  </header>
   
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="text" data-aos="fade-right" data-aos-duration="1200">
+        <h1>Revolutionizing Healthcare with Blockchain</h1>
+        <p>
+          RA BLOCKHEALTH is a secure and transparent platform that connects patients, doctors,
+          labs, and pharmacies using the power of blockchain. Say goodbye to outdated systems!
+        </p>
+          <a href="{{ url_for('register') }}" class="cta-button">Get Started</a>
+      </div>
+      <div class="image" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
+       <img src="{{ url_for('static', filename='css/images/home2.jpg') }}" alt="pagehome">
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about">
+    <div class="about-image" data-aos="fade-right" data-aos-duration="1200">
+      <img src="{{ url_for('static', filename='css/images/home.png') }}" alt="pagehome2">
+    </div>
+    <div class="about-text" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
+      <h2>About the RA BLOCKHEALTH</h2>
+      <p>
+        RA BLOCKHEALTH bridges the gap between traditional healthcare systems and the power of modern blockchain.
+        We are building a future where your medical records are always safe, your doctor is always connected,
+        and your treatment is always optimized.
+      </p>
+     
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature" data-aos="zoom-in" data-aos-delay="100">
+      <i class="fas fa-shield-alt"></i>
+      <h3>Data Security</h3>
+      <p>Your medical data is encrypted and tamper-proof on the blockchain.</p>
+    </div>
+    <div class="feature" data-aos="zoom-in" data-aos-delay="300">
+      <i class="fas fa-network-wired"></i>
+      <h3>Full Connectivity</h3>
+      <p>All parties can securely share and access health data in real time.</p>
+    </div>
+    <div class="feature" data-aos="zoom-in" data-aos-delay="500">
+      <i class="fas fa-chart-line"></i>
+      <h3>Smart Insights</h3>
+      <p>Track your health progress through an intuitive, modern dashboard.</p>
+    </div>
+  </section>
+
+  <!-- AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      const icon = document.querySelector('.theme-toggle i');
-      icon.classList.toggle('fa-moon');
-      icon.classList.toggle('fa-sun');
-    }
+    AOS.init({
+      once: true,
+      easing: 'ease-in-out',
+      duration: 800,
+    });
   </script>
 </body>
 </html>
