@@ -138,7 +138,7 @@ h2 {
 
 /* Forms */
 form {
-  background-color: rgba(8, 165, 250, 0.486);
+  background-color: #224cd89c;
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 201, 167, 0.1);
@@ -159,10 +159,10 @@ textarea {
   width: 100%;
   padding: 12px;
   margin-bottom: 15px;
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: hsla(0, 0%, 100%, 0.753);
   border: 1px solid hwb(171 21% 18%);
   border-radius: 8px;
-  color: hsla(138, 45%, 83%, 0.795);
+  color: hwb(0 0% 100%);
 }
 
 button[type="submit"] {
