@@ -1,0 +1,156 @@
+/* RESET & BASE STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+background: url('images/regestrer.jpg') no-repeat left center;
+
+  background-size: 50%;
+}
+
+/* LAYOUT CONTAINER */
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+/* FORM PANEL */
+.panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* FORM BOX */
+.form-box {
+  width: 100%;
+  max-width: 460px;
+  background-color: #ffffff;
+  padding: 40px 35px;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1ecfa;
+}
+
+/* LOGO SECTION */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #005bbb;
+}
+
+/* FORM HEADER */
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* FORM ELEMENTS */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid #d0dbe8;
+  border-radius: 10px;
+  background-color: #f9fbfd;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff;
+  background-color: #ffffff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* ERROR MESSAGE */
+.error-message {
+  color: #d9534f;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* LINKS SECTION */
+.links {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #666;
+}
+
+.links a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 6px;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .panel {
+    height: auto;
+    padding: 20px;
+  }
+
+  .form-box {
+    padding: 30px 20px;
+    border-radius: 12px;
+  }
+}

@@ -1,0 +1,438 @@
+/* Reset & Font */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(rgba(94, 145, 221, 0.85), rgba(39, 93, 175, 0.85)),
+   url('images/doctor.jpeg') no-repeat center center/cover;
+  color: #310eb1;
+  overflow: hidden;
+}
+
+/* Header */
+header {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.header h1 {
+  font-size: 28px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Nav Buttons */
+.nav-buttons a {
+  background-color: rgba(0, 201, 167, 0.8);
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 25px;
+  margin-left: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav-buttons a:hover {
+  background-color: #00b89f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 201, 167, 0.4);
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 220px;
+  height: calc(100% - 80px);
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 30px 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+.sidebar a {
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 12px 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: #00c9a7;
+  color: #000;
+  font-weight: 600;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 220px;
+  padding: 40px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+.sidebar h2 {
+  margin-bottom: 25px;
+  font-size: 22px;
+  color: #00c9a7;
+}
+/* Tabs */
+.tabs button {
+  margin: 0 8px 20px 0;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 25px;
+  background-color: #00c9a7;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tabs button:hover {
+  background-color: #00b89f;
+}
+
+.tabs button.active {
+  background-color: #ffffff;
+  color: #00c9a7;
+}
+
+/* Toggle Sections */
+.box {
+  display: none;
+}
+
+.box.active {
+  display: block;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Forms */
+form {
+  background-color: rgba(0, 201, 167, 0.1);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 201, 167, 0.1);
+  backdrop-filter: blur(4px);
+  margin-bottom: 40px;
+}
+
+label {
+  font-weight: 600;
+  color: #1be26ef8;
+  margin-bottom: 8px;
+  display: block;
+}
+
+input[type="text"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid #00c9a7;
+  border-radius: 8px;
+  color: #37b1b1;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #ccc;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #00c9a7;
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #00b89f;
+  transform: scale(1.05);
+}
+
+/* Blockchain Cards */
+.doc-card {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-left: 5px solid #00c9a7;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: #5449b8;
+}
+
+.doc-card p strong {
+  color: #a4ff00;
+}
+
+.doc-card .btn {
+  background-color: #be3320;
+  border: none;
+  color: white;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.doc-card .btn:hover {
+  background-color: #00b89f;
+}
+
+/* Alerts */
+.alert-info {
+  background-color: rgba(0, 201, 167, 0.2);
+  border: 1px solid #00c9a7;
+  color: hsl(229, 23%, 50%);
+  text-align: center;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+/* Notification Badge */
+.notification-badge {
+  background-color: #e04e4e;
+  color: white;
+  font-size: 12px;
+  padding: 4px 7px;
+  border-radius: 50%;
+  margin-left: 6px;
+  font-weight: 700;
+  display: inline-block;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #161563a6;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 201, 167, 0.3);
+}
+/* لون الخلفية للمربعات (sendTestBox و blockchainResultsBox) يتناسب مع صفحات الطبيب والمريض */
+.box {
+  background-color: rgba(0, 201, 167, 0.1); /* لون تروازي فاتح مع شفافية */
+  color: #004d40; /* لون نص داكن يتماشى مع الأخضر */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 201, 167, 0.3);
+}
+
+/* تخصيص الفورم داخل sendTestBox */
+form {
+  background-color: rgba(255, 255, 255, 0.15); /* شفاف أكثر مع لون أبيض */
+  color: #004d40; /* نفس لون النص */
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 201, 167, 0.25);
+}
+
+/* الأزرار */
+button[type="submit"] {
+  background-color: #00bfa5 !important; /* تركوازي داكن */
+  color: #fff !important; /* أبيض للنص */
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 12px 0;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #00796b !important; /* تركوازي غامق */
+  color: #fff !important;
+}
+
+/* النصوص داخل doc-card لتتماشى مع ألوان الصفحة */
+.doc-card {
+  background-color: rgba(0, 131, 107, 0.15);
+  border: 1px solid #00897b;
+  color: #004d40;
+  box-shadow: 0 0 10px rgba(0, 131, 107, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.doc-card p strong {
+  color: #00695c;
+}
+
+/* أزرار التحميل */
+.doc-card a.btn-success {
+  background-color: #00796b !important;
+  border-color: #00796b !important;
+  color: #fff !important;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.doc-card a.btn-success:hover {
+  background-color: #004d40 !important;
+  color: #9bd1bb !important;
+}
+/* DataTable Styling */
+table.dataTable {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #e0f2f1;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+table.dataTable thead {
+  background-color: #0059bf;
+  color: #fff;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: rgba(0, 201, 167, 0.2);
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #000000;
+  border: 1px solid #00c9a7;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #00c9a7;
+  border: 1px solid #00c9a7;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.dataTables_wrapper .dataTables_info {
+  color: #ccc;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  background-color: #00c9a7 !important;
+  color: #000 !important;
+  border-radius: 6px !important;
+  margin: 2px;
+  padding: 5px 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background-color: #00b89f !important;
+  color: #fff !important;
+}
+/* تخصيص خاص لفورم sendTestBox */
+#sendTestBox {
+  background: rgba(0, 150, 136, 0.15); /* خلفية تركواز فاتح مع شفافية */
+  border: 2px solid #009688; /* إطار تركوازي */
+  border-radius: 20px;
+  padding: 30px 35px;
+  max-width: 550px;
+  margin: 0 auto 20px auto; /* مركز وأعلى مسافة عن العناصر الأخرى */
+  box-shadow: 0 8px 2px rgba(0, 150, 136, 0.25);
+  color: #004d40;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+
+#sendTestBox h4 {
+  color: #00796b;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+#sendTestBox label {
+  color: #004d40;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+  font-size: 14px;
+}
+
+#sendTestBox input[type="text"],
+#sendTestBox textarea,
+#sendTestBox input[type="file"] {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1.8px solid #00796b;
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-size: 15px;
+  color: #004d40;
+  transition: border-color 0.3s ease;
+  resize: vertical;
+}
+
+#sendTestBox input[type="text"]:focus,
+#sendTestBox textarea:focus,
+#sendTestBox input[type="file"]:focus {
+  outline: none;
+  border-color: #004d40;
+  box-shadow: 0 0 6px #004d40aa;
+}
+
+#sendTestBox textarea {
+  min-height: 110px;
+  font-family: 'Poppins', sans-serif;
+}
+
+#sendTestBox button[type="submit"] {
+  background-color: #00796b;
+  color: #8fd4dd;
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 14px 0;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  margin-top: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#sendTestBox button[type="submit"]:hover {
+  background-color: #004d40;
+  transform: scale(1.05);
+  color: #000000;
+}

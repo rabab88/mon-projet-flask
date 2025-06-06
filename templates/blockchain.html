@@ -5,93 +5,55 @@
   <title>Blockchain Explorer - MediCare Pro</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    /* نفس التنسيقات السابقة */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top left, #001f3f, #00172e);
-      color: #f5f5f5;
-      min-height: 100vh;
-      padding: 0 40px 40px;
-    }
-    .header {
-      padding: 20px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #007cf0;
-    }
-    .header h1 {
-      font-size: 1.6rem;
-      color: #00d8ff;
-    }
-    .search-bar {
-      margin: 20px 0;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .search-bar input {
-      padding: 10px 15px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-      width: 300px;
-    }
-    .block {
-      background: #0f2c45;
-      border-left: 5px solid #00d8ff;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 216, 255, 0.15);
-      transform: scale(1);
-      transition: transform 0.3s ease;
-    }
-    .block:hover {
-      transform: scale(1.02);
-    }
-    .block h3 {
-      color: #00d8ff;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-    }
-    .block p {
-      margin: 4px 0;
-      color: #d0e7ff;
-      font-size: 0.95rem;
-    }
-    pre {
-      background: #001b33;
-      color: #9ed6ff;
-      padding: 10px;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      overflow-x: auto;
-    }
-    .footer {
-      text-align: center;
-      padding: 20px;
-      color: #888;
-      border-top: 1px solid #444;
-      margin-top: 40px;
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h1><i class="fas fa-cubes"></i> Blockchain Explorer</h1>
-    <a href="{{ url_for('home') }}" style="color:#00d8ff;"><i class="fas fa-home"></i> Home</a>
-  </div>
+  
+  <!-- ربط ملف CSS الخارجي -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/blockchain.css') }}">
 
-  <div class="search-bar">
-    <input type="text" id="searchInput" onkeyup="filterBlocks()" placeholder="Search by type or ID...">
+  <!-- Animate.css CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+  <!-- AOS Animate On Scroll CDN -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    rel="stylesheet"
+  />
+</head>
+<header>
+  <div class="header animate__animated animate__fadeInDown">
+    
+    <!-- القسم الأيسر -->
+    <div class="header-left">
+      <h1><i class="fas fa-cubes"></i> Blockchain Explorer</h1>
+    </div>
+
+    <!-- القسم الأوسط -->
+    <div class="header-center animate__animated animate__fadeIn animate__delay-1s">
+      <input type="text" id="searchInput" onkeyup="filterBlocks()" placeholder="Search by type or ID...">
+    </div>
+
+    <!-- القسم الأيمن -->
+    <div class="header-right">
+      <a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a>
+    </div>
+
   </div>
+</header>
+
+<body>
+  
 
   <div id="blockContainer">
     {% for block in blockchain|reverse %}
-    <div class="block">
-      <h3>🧾 Block #{{ block.index }} — Type: {{ block.data.type | replace("_", " ") | title }}</h3>
+    <div 
+      class="block animate__animated animate__fadeInUp"
+      data-aos="fade-up"
+      tabindex="0" 
+      aria-label="Block number {{ block.index }}, type {{ block.data.type|replace('_',' ')|title }}"
+    >
+      <h3><i class="fas fa-cubes"></i> Block {{ block.index }} — Type: {{ block.data.type | replace("_", " ") | title }}</h3>
       <p><strong>Time:</strong> {{ block.timestamp }}</p>
       <p><strong>Hash:</strong> {{ block.hash }}</p>
       <p><strong>Previous Hash:</strong> {{ block.previous_hash }}</p>
@@ -152,11 +114,20 @@
     {% endfor %}
   </div>
 
-  <div class="footer">
+  <div class="footer animate__animated animate__fadeInUp animate__delay-2s">
     &copy; 2025 MediCare Pro — Blockchain Explorer
   </div>
 
+  <!-- AOS JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
+    AOS.init({
+      duration: 700,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
+
     function filterBlocks() {
       const input = document.getElementById("searchInput").value.toLowerCase();
       const blocks = document.querySelectorAll(".block");
